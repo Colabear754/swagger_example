@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="com.colabear754.swagger_example.mapper.MemberMapper">
-    <select id="getDocuments" resultType="DocumentDTO">
-        select a.*
-        from (
-            select rownum r, b.*
-            from (
-                select v_board.*
-                from v_board
-                order by v_board.seq desc
-            ) b
-        ) a
+<mapper namespace="com.colabear754.swagger_example.mapper.BoardMapper">
+    <select id="getDocuments" resultType="BoardDTO">
+        select b.SEQ, b.REG_TIME, b.SUBJECT, b.CONTENT, b.VIEW_CNT
+        from
+        (select SEQ, REG_TIME, SUBJECT, CONTENT, VIEW_CNT, ROWNUM r
+        from BOARD
+        order by SEQ) b
         <![CDATA[where r >= 1 and r <= 5]]>
     </select>
 </mapper>

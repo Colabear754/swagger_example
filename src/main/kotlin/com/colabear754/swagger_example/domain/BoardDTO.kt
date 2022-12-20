@@ -1,12 +1,13 @@
 package com.colabear754.swagger_example.domain
 
-import java.sql.Timestamp
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.time.LocalDateTime
 
-data class DocumentDTO(
+data class BoardDTO(
     var seq: Int,
-    var reg_time: Timestamp,
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    var reg_time: LocalDateTime,
     var subject: String,
     var content: String,
     var view_cnt: Int,
-    var like_cnt: Int
 )
