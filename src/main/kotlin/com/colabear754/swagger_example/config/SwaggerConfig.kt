@@ -8,20 +8,23 @@ import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
+import java.sql.Date
+import java.sql.Timestamp
 
 @Configuration
 @EnableWebMvc
-class ABCDE {
+class SwaggerConfig {
     @Bean
     fun swaggerApi(): Docket = Docket(DocumentationType.SWAGGER_2)
         .consumes(getConsumeContentTypes())
         .produces(getProduceContentTypes())
         .apiInfo(swaggerInfo())
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.colabear754.swagger_example.controller"))
+        .apis(RequestHandlerSelectors.basePackage("com.colabear754.swagger_example.controllers"))
         .paths(PathSelectors.any())
         .build()
         .useDefaultResponseMessages(false)
+        .directModelSubstitute(Timestamp::class.java, Date::class.java)
 
     private fun swaggerInfo() = ApiInfoBuilder()
         .title("스웨거 테스트")
@@ -32,8 +35,6 @@ class ABCDE {
     private fun getConsumeContentTypes(): Set<String> {
         val consumes = HashSet<String>()
         consumes.add("application/json;charset=UTF-8")
-        consumes.add("application/x-www-form-urlencoded")
-        consumes.add("multipart/form-data")
         return consumes
     }
 
